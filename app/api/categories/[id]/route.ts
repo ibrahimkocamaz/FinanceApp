@@ -5,24 +5,19 @@ import { cookies } from "next/headers";
 // DELETE a category by ID
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } } // context olarak almak daha güvenli
 ) {
   try {
-    // Always use destructuring pattern to access params directly
-    const id = params.id;
-
-    const cookieStore = await cookies();
+    const { id } = context.params; // params'ı buradan al
+    const cookieStore = cookies();
     const userId = cookieStore.get("session")?.value;
 
     if (!userId) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    // First check if the category exists
     const category = await prisma.category.findUnique({
-      where: {
-        id,
-      },
+      where: { id },
     });
 
     if (!category) {
@@ -32,11 +27,8 @@ export async function DELETE(
       );
     }
 
-    // Check if any expenses are using this category
     const expensesUsingCategory = await prisma.expense.count({
-      where: {
-        categoryId: id,
-      },
+      where: { categoryId: id },
     });
 
     if (expensesUsingCategory > 0) {
@@ -49,12 +41,7 @@ export async function DELETE(
       );
     }
 
-    // Delete the category
-    await prisma.category.delete({
-      where: {
-        id,
-      },
-    });
+    await prisma.category.delete({ where: { id } });
 
     return NextResponse.json({ message: "Category deleted successfully" });
   } catch (error) {
