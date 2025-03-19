@@ -68,7 +68,9 @@ export default function Home() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Track Expenses</h3>
+              <h3 className="text-xl font-semibold mb-2 text-gray-600">
+                Track Expenses
+              </h3>
               <p className="text-gray-600">
                 Easily log your expenses and categorize them for better
                 organization.
@@ -98,7 +100,9 @@ export default function Home() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Visual Analytics</h3>
+              <h3 className="text-xl font-semibold mb-2 text-gray-600">
+                Visual Analytics
+              </h3>
               <p className="text-gray-600">
                 See where your money goes with clear charts and spending
                 breakdowns.
@@ -122,7 +126,9 @@ export default function Home() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Time-Based Reports</h3>
+              <h3 className="text-xl font-semibold mb-2 text-gray-600">
+                Time-Based Reports
+              </h3>
               <p className="text-gray-600">
                 View your spending over time with daily, weekly, monthly, and
                 yearly reports.
