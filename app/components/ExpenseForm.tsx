@@ -8,8 +8,11 @@ interface Category {
   name: string;
 }
 
-// Create a custom event for expense added
-const expenseAddedEvent = new CustomEvent("expenseAdded", { detail: {} });
+// Create a custom event for expense added - only in browser
+const expenseAddedEvent =
+  typeof window !== "undefined"
+    ? new CustomEvent("expenseAdded", { detail: {} })
+    : null;
 
 export default function ExpenseForm() {
   const router = useRouter();
@@ -128,11 +131,10 @@ export default function ExpenseForm() {
       // Show success message
       setSuccessMessage("Expense added successfully!");
 
-      // Emit custom event for expense added
-      window.dispatchEvent(expenseAddedEvent);
-
-      // Refresh the page to show the new expense
-      router.refresh();
+      // Emit custom event for expense added - only in browser
+      if (typeof window !== "undefined" && expenseAddedEvent) {
+        window.dispatchEvent(expenseAddedEvent);
+      }
     } catch (error: any) {
       setError(error.message);
     } finally {

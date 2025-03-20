@@ -5,6 +5,7 @@ import ExpenseList from "@/app/components/ExpenseList";
 import ExpenseForm from "@/app/components/ExpenseForm";
 import { getSession } from "@/app/lib/session";
 import DashboardTabs from "@/app/components/DashboardTabs";
+import ManualRefreshButton from "@/app/components/ManualRefreshButton";
 
 export default async function DashboardPage() {
   const user = await getSession();
@@ -14,7 +15,10 @@ export default async function DashboardPage() {
       <Navbar user={user} />
 
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">Dashboard</h1>
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
+          <ManualRefreshButton />
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Main Content - Stats and Expense List */}
